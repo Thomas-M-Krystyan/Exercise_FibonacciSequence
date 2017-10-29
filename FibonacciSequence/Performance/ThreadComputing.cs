@@ -18,10 +18,10 @@ namespace FibonacciSequence.Performance
             this._iteration = number;
         }
 
-        public void Calculate()
+        public void Calculate(Func<ulong, ulong> function)  // Delegate passing
         {
             Console.WriteLine(HelperMethods.DisplayResult(iterationNumber: this._iteration,
-                                                          fibonacciNumber: Fibonacci.GenerateSequence4(this._iteration)));
+                                                          fibonacciNumber: function(this._iteration)));
             if (Interlocked.Decrement(ref _numberOfThreads) == 0)
             {
                 AllThreadsCompleted.Set();
