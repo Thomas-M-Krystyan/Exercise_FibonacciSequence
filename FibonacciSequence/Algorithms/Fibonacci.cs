@@ -12,12 +12,12 @@ namespace FibonacciSequence.Algorithms
             ulong displayCounter = 0UL;
 
             // Fibonacci variables & algorithm
-            for (ulong i = 0UL, prevPrevFibonacci = 0UL, prevFibonacci = 1UL; i <= iterationNumber; i++)
+            for (ulong i = 0UL, prevPrevFibonacci = 0UL, prevFibonacci = 1UL, currentFibonacci; i <= iterationNumber; i++)
             {
                 Console.WriteLine($"{displayCounter}. {prevPrevFibonacci}");
-                ulong sumNumbers = prevPrevFibonacci + prevFibonacci;  // Temporary variable
+                currentFibonacci = prevPrevFibonacci + prevFibonacci;  // Temporary variable
                 prevPrevFibonacci = prevFibonacci;
-                prevFibonacci = sumNumbers;
+                prevFibonacci = currentFibonacci;
 
                 displayCounter++;
             }
@@ -32,13 +32,14 @@ namespace FibonacciSequence.Algorithms
             // Fibonacci variables
             ulong prevPrevFibonacci = 0UL;
             ulong prevFibonacci = 1UL;
+            ulong currentFibonacci;
 
             while (iterationNumber-- > 0UL)
             {
                 Console.WriteLine($"{displayCounter}. {prevPrevFibonacci}");
-                ulong tempNumber = prevPrevFibonacci;  // Temporary variable
+                currentFibonacci = prevPrevFibonacci;  // Temporary variable
                 prevPrevFibonacci = prevFibonacci;
-                prevFibonacci += tempNumber;
+                prevFibonacci += currentFibonacci;
 
                 displayCounter++;
             }
@@ -71,6 +72,20 @@ namespace FibonacciSequence.Algorithms
                     return GenerateSequence4(number - 1UL) + GenerateSequence4(number - 2UL);
             }
         }
+
+        // Upgraded recursion method #3 (using "memorize strategy")
+        internal static ulong GenerateSequence5(ulong number)
+        {
+            switch (number)
+            {
+                case 0UL:
+                    return 0UL;
+                case 1UL:
+                    return 1UL;
+                default:
+                    return GenerateSequence4(number - 1UL) + GenerateSequence4(number - 2UL);
+            }
+        }
     #endregion
 
     #region Returning n-th element of Fibonacci sequence
@@ -80,16 +95,16 @@ namespace FibonacciSequence.Algorithms
             string result = default(string);
 
             // Fibonacci variables & algorithm
-            for (ulong i = 0UL, prevPrevFibonacci = 0UL, prevFibonacci = 1UL; i <= iterationNumber; i++)
+            for (ulong i = 0UL, prevPrevFibonacci = 0UL, prevFibonacci = 1UL, currentFibonacci; i <= iterationNumber; i++)
             {
                 if (i == iterationNumber)
                 {
                     result = Utilities.HelperMethods.DisplayResult(iterationNumber: iterationNumber,
                                                                    fibonacciNumber: prevPrevFibonacci);
                 }
-                ulong sumNumbers = prevPrevFibonacci + prevFibonacci;  // Temporary variable
+                currentFibonacci = prevPrevFibonacci + prevFibonacci;  // Temporary variable
                 prevPrevFibonacci = prevFibonacci;
-                prevFibonacci = sumNumbers;
+                prevFibonacci = currentFibonacci;
             }
 
             return result;
@@ -100,14 +115,15 @@ namespace FibonacciSequence.Algorithms
         {
             // Fibonacci variables
             ulong prevPrevFibonacci = 0UL;
-            ulong prevFibonacci = prevPrevFibonacci + 1UL;
+            ulong prevFibonacci = 1UL;
+            ulong currentFibonacci;
 
             ulong counter = iterationNumber;
             while (counter > 0UL)
             {
-                ulong tempNumber = prevPrevFibonacci;  // Temporary variable
+                currentFibonacci = prevPrevFibonacci;  // Temporary variable
                 prevPrevFibonacci = prevFibonacci;
-                prevFibonacci += tempNumber;
+                prevFibonacci += currentFibonacci;
 
                 counter--;
             }
