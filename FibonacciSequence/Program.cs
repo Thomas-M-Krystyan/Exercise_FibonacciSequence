@@ -73,7 +73,6 @@ namespace FibonacciSequence
                     // TODO: 33 seconds for 40 numbers
 
                     #region Non-optimal invoking
-
                     /*for (ulong iteration = 0UL; iteration <= Number; iteration++)
                     {
                         Fibonacci.GenerateSequence4(iteration);
@@ -82,7 +81,6 @@ namespace FibonacciSequence
                             Console.WriteLine(HelperMethods.DisplayResult(iteration, Fibonacci.GenerateSequence4(iteration)));
                         }
                     }*/
-
                     #endregion
                 }
             }
