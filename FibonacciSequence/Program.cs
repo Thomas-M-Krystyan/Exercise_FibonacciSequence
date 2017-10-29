@@ -12,7 +12,7 @@ namespace FibonacciSequence
         internal static ulong Number;
         internal static bool Run;
 
-        internal static void Main(string[] args)
+        private static void Main(string[] args)
         {
             // ----------------------------------------------------------------
             // Start of program
@@ -66,22 +66,37 @@ namespace FibonacciSequence
                 Console.WriteLine(Waiting);
                 using (ThreadPerformance.Measure())
                 {
-                    // TODO: 9 seconds for 40 numbers
+                    // TODO: 40 numbers in ~00:00:09.000
+                    // TODO: 50 numbers in ~00:18:33.000
                     ThreadComputing threadComputing = new ThreadComputing(Number);
-                    threadComputing.Calculate();
+                    threadComputing.Calculate(Fibonacci.GenerateSequence4);
 
-                    // TODO: 33 seconds for 40 numbers
-
-                    #region Non-optimal invoking
+                    // TODO: 40 numbers in ~00:00:33.000
+                    #region Non-multithreaded invoking
                     /*for (ulong iteration = 0UL; iteration <= Number; iteration++)
                     {
-                        Fibonacci.GenerateSequence4(iteration);
+                        ulong result = Fibonacci.GenerateSequence4(iteration);
                         if (iteration == Number)
                         {
-                            Console.WriteLine(HelperMethods.DisplayResult(iteration, Fibonacci.GenerateSequence4(iteration)));
+                            Console.WriteLine(HelperMethods.DisplayResult(iteration, result));
                         }
                     }*/
                     #endregion
+                }
+            }
+
+            HelperMethods.Separator();
+            Console.WriteLine(ReturnNthFromRecursion3Algorithm);
+            HelperMethods.WriteColorLine(WarningStackOverflow);
+            HelperMethods.AskIfContinue();
+            if (Run)
+            {
+                Console.WriteLine(Waiting);
+                using (ThreadPerformance.Measure())
+                {
+                    // TODO: 4_500 numbers in ~00:00:00.015
+                    ThreadComputing threadComputing = new ThreadComputing(Number);
+                    threadComputing.Calculate(Fibonacci.GenerateSequence5);
                 }
             }
 
@@ -95,7 +110,13 @@ namespace FibonacciSequence
             {
                 using (ThreadPerformance.Measure())
                 {
-                    Fibonacci.GenerateSequence1(Number);  // FAST
+                    // TODO #1: 4_500 numbers in ~00:00:00.062
+                    // TODO #2: 4_500 numbers in ~00:00:00.078
+                    // TODO #3: 4_500 numbers in ~00:00:00.078
+                    // TODO #4: 8_500 numbers in ~00:00:00.078
+                    // TODO #5: 8_500 numbers in ~00:00:00.140
+                    // TODO #6: 500_000 numbers in ~00:00:03.790
+                    Fibonacci.GenerateSequence1(Number);  // VERY FAST
                 }
             }
 
@@ -106,7 +127,13 @@ namespace FibonacciSequence
             {
                 using (ThreadPerformance.Measure())
                 {
-                    Fibonacci.GenerateSequence2(Number);  // FAST
+                    // TODO #1: 4_500 numbers in ~00:00:00.031
+                    // TODO #2: 4_500 numbers in ~00:00:00.015
+                    // TODO #3: 4_500 numbers in ~00:00:00.031
+                    // TODO #4: 8_500 numbers in ~00:00:00.046
+                    // TODO #5: 8_500 numbers in ~00:00:00.046
+                    // TODO #6: 500_000 numbers in ~00:00:03.307
+                    Fibonacci.GenerateSequence2(Number);  // VERY FAST
                 }
             }
 
@@ -118,7 +145,13 @@ namespace FibonacciSequence
             {
                 using (ThreadPerformance.Measure())
                 {
-                    Fibonacci.GenerateSequence3(Number); // VERY FAST
+                    // TODO #1: 4_500 numbers in ~00:00:00.046
+                    // TODO #2: 4_500 numbers in ~00:00:00.031
+                    // TODO #3: 4_500 numbers in ~00:00:00.078
+                    // TODO #4: 8_500 numbers in ~00:00:00.062
+                    // TODO #5: 8_500 numbers in ~00:00:00.015
+                    // TODO #6: 500_000 numbers in StackOverflowException
+                    Fibonacci.GenerateSequence3(Number);  // VERY FAST
                 }
             }
 
@@ -131,11 +164,33 @@ namespace FibonacciSequence
             {
                 using (ThreadPerformance.Measure())
                 {
-                    // TODO: 23-24 seconds for 40 numbers
-                    // TODO: > 51 minutes for 50 numbers
+                    // TODO #1: 40 numbers in ~00:00:24.000
+                    // TODO #2: 50 numbers in ~00:51:00.000
                     for (ulong iteration = 0UL; iteration <= Number; iteration++)
                     {
-                        Console.Write($"{Fibonacci.GenerateSequence4(iteration)} "); // VERY SLOW
+                        Console.Write($"{Fibonacci.GenerateSequence4(iteration)}, ");  // VERY SLOW
+                    }
+                    Console.WriteLine();
+                }
+            }
+
+            HelperMethods.Separator();
+            Console.WriteLine(Recursion3Algorithm);
+            HelperMethods.WriteColorLine(WarningStackOverflow);
+            HelperMethods.AskIfContinue();
+            if (Run)
+            {
+                using (ThreadPerformance.Measure())
+                {
+                    // TODO #1: 4_500 numbers in ~00:00:00.015
+                    // TODO #2: 4_500 numbers in ~00:00:00.031
+                    // TODO #3: 4_500 numbers in ~00:00:00.046
+                    // TODO #4: 8_500 numbers in ~00:00:00.109
+                    // TODO #5: 8_500 numbers in ~00:00:00.062
+                    // TODO #6: 500_000 numbers in StackOverflowException
+                    for (ulong iteration = 0UL; iteration <= Number; iteration++)
+                    {
+                        Console.Write($"{Fibonacci.GenerateSequence5(iteration)}, ");  // VERY FAST
                     }
                     Console.WriteLine();
                 }
