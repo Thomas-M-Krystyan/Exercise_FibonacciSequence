@@ -92,7 +92,7 @@ namespace FibonacciSequence.Utilities
             {
                 Console.ReadKey();
             }
-            Console.WriteLine(new string('-', 50));
+            Console.WriteLine(new string('-', 78));
         }
 
         // Helper method to displaying warning messages in red color
